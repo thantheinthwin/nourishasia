@@ -57,7 +57,7 @@ const LandingPage = () => {
     },
   ]
   return (
-    <div className='grid gap-8'>
+    <div className='grid gap-16'>
       <Navigation/>
       <section className='grid grid-cols-1 p-2 lg:grid-cols-4' id='home'>
         <div className='flex flex-col justify-center order-last col-span-3 gap-2 p-4 lg:gap-6 lg:p-40 lg:order-first'>
@@ -73,10 +73,10 @@ const LandingPage = () => {
           </NavLink>
         </div>
         <div className='grid col-span-1'>
-          <img src={Hero} alt='Hero' className='object-cover h-full'/>
+          <img src={Hero} alt='Hero' className='object-cover h-full rounded-md'/>
         </div>
       </section>
-      <section className='grid' id='process'>
+      <section className='grid p-3' id='process'>
         <figure className="relative w-full h-full">
           <img
             className="w-full h-[calc(100vh-30rem)] rounded-xl object-cover object-bottom"
