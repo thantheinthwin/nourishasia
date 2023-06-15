@@ -1,0 +1,13 @@
+export { default as Logo } from './nourishasia-logo.png'
+export { default as LoginPic } from './login.jpg'
+export { default as Hero } from './hero.jpg'
+export { default as Bg1 } from './bg-1.jpg'
+
+export { default as Meal1 } from './shop-img-1.jpg'
+export { default as Meal2 } from './shop-img-2.jpg'
+export { default as Meal3 } from './shop-img-3.jpg'
+export { default as Meal4 } from './shop-img-4.jpg'
+export { default as Meal5 } from './shop-img-5.jpg'
+export { default as Meal6 } from './shop-img-6.jpg'
+export { default as Meal7 } from './shop-img-7.jpg'
+export { default as Meal8 } from './shop-img-8.jpg'
