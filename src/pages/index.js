@@ -1,3 +1,7 @@
 export { default as LandingPage } from './landingPage'
 export { default as Home } from './home'
 export { default as LoginPage } from './login'
+export { default as RecipePage } from './recipes'
+export { default as CalorieTrackerPage } from './calorieTracker'
+export { default as AddRecipePage } from './addRecipe'
+export { default as ProfilePage } from './Profile'

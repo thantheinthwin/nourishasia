@@ -17,9 +17,6 @@ const App = () => {
 
   const [auth, setAuth] = useState(false || window.localStorage.getItem("auth") === "true");
 
-  const location = window.location.href.split("/");
-  // console.log(window.location.href.split("/")[3]);
-
   // Restricting the user from getting access to home page without signing in
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((userCred) => {
@@ -45,10 +42,8 @@ const App = () => {
 
   // Routing the user back to home screen if the user has already logged in
   useEffect(() => {
-    if(window.localStorage.getItem("auth") === "true"){
-        navigate("/home", {replace: true})
-    }else{
-      navigate('/', {replace: true})
+    if(window.localStorage.getItem("auth") === "false"){
+        navigate("/", {replace: true})
     }
   }, [])
 
@@ -58,7 +53,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<LandingPage/>}/>
         <Route path='/login' element={<LoginPage setAuth={setAuth}/>}/>
-        <Route path='/home' element={<Home/>}/>
+        <Route path='/home/*' element={<Home/>}/>
       </Routes>
     </AnimatePresence>
     </div>
