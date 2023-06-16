@@ -9,11 +9,13 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter, } from '@material-tailwind/react'
+  CardFooter } from '@material-tailwind/react'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
   const meals = [
     {
       name: 'Tuna Spaghetti',
@@ -56,6 +58,7 @@ const LandingPage = () => {
       calorie: '~330'
     },
   ]
+
   return (
     <div className='grid gap-16'>
       <Navigation/>
@@ -72,9 +75,10 @@ const LandingPage = () => {
               </Button>
           </NavLink>
         </div>
-        <div className='grid col-span-1'>
-          <img src={Hero} alt='Hero' className='object-cover h-full rounded-md'/>
-        </div>
+        <img src={Hero} alt='Hero' className='object-cover col-span-1 rounded-md lg:h-full'/>
+        {/* <div className='grid col-span-1'>
+          
+        </div> */}
       </section>
       <section className='grid p-3' id='process'>
         <figure className="relative w-full h-full">
@@ -98,22 +102,20 @@ const LandingPage = () => {
         </Typography>
         <div className='grid w-4/5 grid-cols-1 gap-4 mx-auto lg:grid-cols-4'>
           {meals.map((item, i) => (
-            <Card className="p-2 mt-10" key={i}>
-            <CardHeader color="blue-gray" className="relative h-96">
-              <img src={item.img} alt="img-blur-shadow" layout="fill"/>
-            </CardHeader>
-            <CardBody>
-              <Typography variant="h5" color="blue-gray" className="mb-2">
-                {item.name}
-              </Typography>
-              <Typography>
-                {item.calorie} calories
-              </Typography>
-            </CardBody>
-            <CardFooter className="pt-0">
-              <Button className='bg-primary hover:shadow-brown-200'>Get Recipe</Button>
-            </CardFooter>
-          </Card>
+            <Card className="grid" key={i}>
+              <CardBody className='grid gap-4'>
+                <img src={item.img} alt="img" className='object-cover rounded-md shadow'/>
+                <Typography variant="h5" color="blue-gray">
+                  {item.name}
+                </Typography>
+                <Typography>
+                  {item.calorie} calories
+                </Typography>
+              </CardBody>
+              <CardFooter className='self-end'>
+                <Button className='bg-primary hover:shadow-brown-200' onClick={() => {window.localStorage.getItem('auth' ? navigate('/login', {replace: true}) : navigate('/home', {replace: true}))}}>Get Recipe</Button>
+              </CardFooter>
+            </Card>
           ))}
         </div>
       </section>

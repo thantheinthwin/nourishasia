@@ -18,7 +18,7 @@ const App = () => {
   const [auth, setAuth] = useState(false || window.localStorage.getItem("auth") === "true");
 
   const location = window.location.href.split("/");
-  console.log(window.location.href.split("/")[3]);
+  // console.log(window.location.href.split("/")[3]);
 
   // Restricting the user from getting access to home page without signing in
   useEffect(() => {

@@ -67,23 +67,21 @@ const ContentArea = () => {
   return (
     <div className='grid w-full h-full grid-cols-1 gap-8 p-8 mx-auto overflow-y-scroll lg:grid-cols-4'>
         {meals.map((item, i) => (
-        <Card className="p-2 mt-10" key={i}>
-        <CardHeader color="blue-gray" className="relative h-72">
-            <img src={item.img} alt="img-blur-shadow" layout="fill"/>
-        </CardHeader>
-        <CardBody>
-            <Typography variant="h5" color="blue-gray" className="mb-2">
-            {item.name}
-            </Typography>
-            <Typography>
-            {item.calorie} calories
-            </Typography>
-        </CardBody>
-        <CardFooter className="pt-0">
-            <Button className='bg-primary hover:shadow-brown-200' onClick={handleOpen}>Get Recipe</Button>
-        </CardFooter>
-        </Card>
-        ))}
+            <Card className="grid" key={i}>
+              <CardBody className='grid gap-4'>
+                <img src={item.img} alt="img" className='object-cover rounded-md shadow'/>
+                <Typography variant="h5" color="blue-gray">
+                  {item.name}
+                </Typography>
+                <Typography>
+                  {item.calorie} calories
+                </Typography>
+              </CardBody>
+              <CardFooter className='self-end'>
+                <Button className='bg-primary hover:shadow-brown-200' onClick={handleOpen}>Get Recipe</Button>
+              </CardFooter>
+            </Card>
+          ))}
         <RecipeCard open={open} handleOpen={handleOpen} dish={meals[0].name} calorie={meals[0].calorie} img={meals[0].img}/>
         {/* {meals.map((item, i) => (<RecipeCard open={open} handleOpen={handleOpen} dish={item.name} calorie={item.calorie} img={item.img}/>))}  */}
     </div>

@@ -28,7 +28,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
         >
-        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'home'} spy={true} smooth={true} offset={-100} duration={500} onClick={() => {setOpenNav(false)}}>
+        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'home'} spy={true} smooth={true} offset={-300} duration={700} onClick={() => {setOpenNav(false)}}>
             About
         </Link>
         </Typography>
@@ -38,7 +38,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
         >
-        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'process'} spy={true} smooth={true} offset={-100} duration={500} onClick={() => {setOpenNav(false)}}>
+        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'process'} spy={true} smooth={true} offset={-300} duration={700} onClick={() => {setOpenNav(false)}}>
             Process
         </Link>
         </Typography>
@@ -48,7 +48,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
         >
-        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'meals'} spy={true} smooth={true} offset={-100} duration={500} onClick={() => {setOpenNav(false)}}>
+        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'meals'} spy={true} smooth={true} offset={-300} duration={700} onClick={() => {setOpenNav(false)}}>
             Meals
         </Link>
         </Typography>
@@ -58,7 +58,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
         >
-        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'contact'} spy={true} smooth={true} offset={-100} duration={500} onClick={() => {setOpenNav(false)}}>
+        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'contact'} spy={true} smooth={true} offset={-100} duration={700} onClick={() => {setOpenNav(false)}}>
             Contact Us
         </Link>
         </Typography>

@@ -135,8 +135,8 @@ const Login = ({setAuth}) => {
     }, [])
 
   return (
-    <div className='grid w-screen h-screen lg:flex'>
-        <img src={LoginPic} alt="tea-leaf-salad" className='object-cover object-top w-full h-64 lg:h-full lg:w-2/5' loading='lazy'/>
+    <div className='flex flex-col w-screen h-screen lg:flex-row'>
+        <img src={LoginPic} alt="tea-leaf-salad" className='object-cover object-top w-full h-[calc(30vh-1rem)] lg:h-full lg:w-2/5' loading='lazy'/>
         <div className='grid gap-2 p-4 m-auto lg:gap-4 lg:self-center lg:h-auto lg:w-1/4'>
             <Typography variant='h1' className='text-primary font-logo'>Nourishasia</Typography>
             <Typography variant='h4'>Sign in or create an account</Typography>
