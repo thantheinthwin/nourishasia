@@ -49,7 +49,7 @@ const Recipes = () => {
   
     return (
       <div className='grid w-full h-full grid-cols-1 gap-8 p-8 mx-auto overflow-y-scroll lg:grid-cols-3 xl:grid-cols-5'>
-          {meals.map((item, i) => (<RecipeCard item={item} i={i}/>))}
+          {meals.map((item, i) => (<RecipeCard item={item} key={i}/>))}
           {/* <RecipeDialog dish={meals[0].name} calorie={meals[0].calorie} img={meals[0].img}/> */}
       </div>
     )

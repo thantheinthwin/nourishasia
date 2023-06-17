@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Typography,
@@ -12,11 +12,13 @@ import {
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
-  Cog6ToothIcon,
+  FolderIcon,
   PowerIcon,
   ArrowDownTrayIcon,
   BeakerIcon
 } from "@heroicons/react/24/solid";
+
+import { AnimatePresence, motion } from "framer-motion";
 
 import { Logo } from "../assets/img";
 
@@ -26,6 +28,7 @@ import { NavLink, useNavigate } from "react-router-dom";
  
 const SideBar = (props) => {
   const {open, setOpen} = {...props}
+  const [isRecipePage, setRecipePage] = useState(false);
   // const [open, setOpen] = React.useState(false);
   const closeDrawer = () => setOpen(false);
 
@@ -41,6 +44,15 @@ const SideBar = (props) => {
 
     navigate('/login', {replace: true});
   }
+
+  useEffect(() => {
+    if(window.location.href.split('/')[4] == 'recipes'){
+      setRecipePage(true);
+    }
+    else{
+      setRecipePage(false);
+    }
+  },[window.location.href])
  
   return (
     <React.Fragment>
@@ -52,18 +64,32 @@ const SideBar = (props) => {
               <img src={Logo} alt="brand" className="" />
             </div>
             <List className="grid">
-              <div className="grid gap-4">
-                  <Select label="Food Choice">
-                      <Option>Vegen</Option>
-                      <Option>Carnism</Option>
-                  </Select>
-                  <Select label="Cuisine">
-                      {cuisine.map((item, i) => (<Option key={i}>{item}</Option>))}
-                  </Select>
-                  <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50">Filter</div>
-              </div>
-              <hr className="my-2 border-blue-gray-50" />
-              <ListItem>
+              {isRecipePage && (
+                <AnimatePresence>
+                <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25}}>
+                  <div className="grid gap-4">
+                      <Select label="Food Choice">
+                          <Option>Vegen</Option>
+                          <Option>Carnism</Option>
+                      </Select>
+                      <Select label="Cuisine">
+                          {cuisine.map((item, i) => (<Option key={i}>{item}</Option>))}
+                      </Select>
+                      <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50">Filter</div>
+                  </div>
+                  <hr className="my-2 border-blue-gray-50" />
+                </motion.div>
+                </AnimatePresence>
+              )}
+              <ListItem onClick={closeDrawer}>
+                <NavLink to={'/home/recipes'} className='flex w-full'>
+                  <ListItemPrefix>
+                    <FolderIcon className="w-5 h-5" />
+                  </ListItemPrefix>
+                  Recipes
+                </NavLink>
+              </ListItem>
+              <ListItem onClick={closeDrawer}>
                 <NavLink to={'/home/addRecipes'} className='flex w-full'>
                   <ListItemPrefix>
                     <ArrowDownTrayIcon className="w-5 h-5" />
@@ -71,7 +97,7 @@ const SideBar = (props) => {
                   Add recipe
                 </NavLink>
               </ListItem>
-              <ListItem>
+              <ListItem onClick={closeDrawer}>
                 <NavLink to={'/home/calorie_tracker'} className='flex w-full'>
                   <ListItemPrefix>
                     <BeakerIcon className="w-5 h-5" />
@@ -80,7 +106,7 @@ const SideBar = (props) => {
                 </NavLink>
               </ListItem>
               <hr className="my-2 border-blue-gray-50" />
-              <ListItem>
+              <ListItem onClick={closeDrawer}>
                 <NavLink to={'/home/profile'}  className='flex w-full'>
                   <ListItemPrefix>
                     <UserCircleIcon className="w-5 h-5" />
@@ -108,17 +134,31 @@ const SideBar = (props) => {
             <img src={Logo} alt="brand" className="" />
           </div>
           <List className="grid">
-            <div className="grid gap-4">
-                <Select label="Food Choice">
-                    <Option>Vegen</Option>
-                    <Option>Carnism</Option>
-                </Select>
-                <Select label="Cuisine">
-                    {cuisine.map((item, i) => (<Option key={i}>{item}</Option>))}
-                </Select>
-                <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50">Filter</div>
-            </div>
-            <hr className="my-2 border-blue-gray-50" />
+            {isRecipePage && (
+              <AnimatePresence>
+              <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25}}>
+                <div className="grid gap-4">
+                    <Select label="Food Choice">
+                        <Option>Vegen</Option>
+                        <Option>Carnism</Option>
+                    </Select>
+                    <Select label="Cuisine">
+                        {cuisine.map((item, i) => (<Option key={i}>{item}</Option>))}
+                    </Select>
+                    <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50">Filter</div>
+                </div>
+                <hr className="my-2 border-blue-gray-50" />
+              </motion.div>
+              </AnimatePresence>
+            )}
+            <ListItem>
+                <NavLink to={'/home/recipes'} className='flex w-full'>
+                  <ListItemPrefix>
+                    <FolderIcon className="w-5 h-5" />
+                  </ListItemPrefix>
+                  Recipes
+                </NavLink>
+              </ListItem>
             <ListItem>
               <NavLink to={'/home/addRecipes'} className='flex w-full'>
                 <ListItemPrefix>

@@ -23,7 +23,7 @@ const ContentArea = () => {
   ]
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full bg-secondary'>
       <Routes>
         {routes.map((route, i) => (
           <Route key={i} path={route.path} element={route.element}/>

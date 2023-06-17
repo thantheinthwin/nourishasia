@@ -33,7 +33,7 @@ const Login = ({setAuth}) => {
                     type: actionType.SET_USER,
                     user: userCred
                 })
-                navigate("/home", {replace: true})
+                navigate("/home/recipes", {replace: true})
             }else{
                 setAuth(false);
                 dispatch({

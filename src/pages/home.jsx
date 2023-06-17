@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div className='flex w-full h-screen overflow-hidden'>
       <SideBar open={sideBarOpen} setOpen={setSideBarOpen}/>
-      <div className='grid w-full'>
+      <div className='flex flex-col w-full'>
         <HomeNavBar handleSideBarOpen={handleSideBarOpen}/>
         <ContentArea/>
       </div>
