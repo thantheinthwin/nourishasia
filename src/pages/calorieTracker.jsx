@@ -11,10 +11,10 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline'
 import { getNutritionalFacts } from '../api'
+import { NutritionCard } from '../components'
 
 const CalorieTracker = () => {
   const [data, setData] = useState([{ingredient: '', quantity: '', unit: 'g'}])
-  const [showData, setShowData] = useState(false);
   const [isMobileView, setMobileView] = useState(false);
 
   const [nutritionFacts, setNutritionFacts] = useState(null);
@@ -54,7 +54,6 @@ const CalorieTracker = () => {
     getNutritionalFacts(data)
     .then(data => {
       setNutritionFacts({...data});
-      console.log(nutritionFacts);
     })
     .catch(error => {
       console.log(error);
@@ -65,9 +64,11 @@ const CalorieTracker = () => {
     setMobileView(window.innerWidth < 800)
   }, [isMobileView])
 
+  // console.log(nutritionFacts);
+
   return (
     <div className="flex flex-col w-full gap-3 pt-4 pb-14 h-[calc(100%-2rem)] overflow-y-scroll xl:flex-row">
-      <Card className="grid w-11/12 p-4 m-auto lg:w-5/6 xl:w-3/5 h-fit">
+      <Card className="grid w-11/12 px-4 m-auto lg:w-5/6 xl:w-3/5 h-fit">
         <CardBody className='grid gap-4'>
           <div className='flex items-center justify-between'>
             <Typography variant='h5'>Calorie Tracker</Typography>
@@ -99,7 +100,7 @@ const CalorieTracker = () => {
         </CardBody>
         <CardFooter>
           <Button
-            className="bg-primary hover:shadow-brown-200"
+            className="-mt-6 bg-primary hover:shadow-brown-200"
             onClick={() => calculateCalorie(data)}
           >
             Calculate the calories
@@ -107,32 +108,7 @@ const CalorieTracker = () => {
         </CardFooter>
         {/* <Table headers={table.headers} contents={table.contents}/> */}
       </Card>
-      { nutritionFacts &&
-      <Card className="grid w-11/12 p-4 m-auto md:w-2/3 xl:w-1/3 h-fit">
-        <CardBody className='grid gap-4'>
-          <div className='grid gap-1'>
-            <Typography className='text-xl font-bold md:text-3xl'>Nutrition Facts</Typography>
-            <hr className="h-2 rounded bg-blue-gray-50 border-blue-gray-50" />
-          </div>
-          <div className='grid gap-1'>
-            <Typography className='text-base font-bold md:text-xl'>Amount Per Serving</Typography>
-            <div className='flex items-center justify-between'>
-              <Typography className='text-4xl font-bold'>Calories</Typography>
-              <Typography className='text-4xl font-bold'>{nutritionFacts.calories}</Typography>
-            </div>
-            <hr className="h-1 rounded bg-blue-gray-50 border-blue-gray-50" />
-          </div>
-          <div className='flex flex-col'>
-              <Typography className='pb-2 text-xs font-bold text-right border-b'>% Daily Value *</Typography>
-              <div>
-                <Typography className='text-sm font-bold md:text-base'>Total Fat</Typography>
-              </div>
-              <div>
-                <Typography className='text-sm font-bold md:text-base'>Total Fat</Typography>
-              </div>
-          </div>
-        </CardBody>
-      </Card>
+      { nutritionFacts && <NutritionCard nutritionFacts={nutritionFacts}/>
       }
     </div>
   );

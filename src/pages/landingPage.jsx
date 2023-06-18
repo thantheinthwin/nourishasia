@@ -64,7 +64,7 @@ const LandingPage = () => {
       <Navigation/>
       <div className='grid w-full xl:w-3/4 xl:mx-auto'>
         <section className='grid grid-cols-1 p-2 lg:grid-cols-4' id='home'>
-          <div className='flex flex-col justify-center order-last col-span-3 gap-2 p-4 lg:gap-6 lg:pr-20 lg:order-first'>
+          <div className='flex flex-col justify-center order-last col-span-3 gap-2 px-4 py-4 lg:py-40 lg:gap-6 lg:pr-20 lg:order-first'>
             <Typography variant='h3' className='text-2xl text-right lg:text-left text-accent'>Let's Create Your Healthy Meal</Typography>
             <Typography variant='paragraph' className='text-xl text-justify lg:text-3xl decotext text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Join our community of food enthusiasts and embark on a flavourful journey that nourishes both body and soul. Start cooking and living a healthier Asian-inspired life with NourushAsia today.</Typography>
             <NavLink className={"w-fit place-self-end lg:place-self-start"} to={"/login"}>
@@ -84,7 +84,7 @@ const LandingPage = () => {
         <section className='grid p-3' id='process'>
           <figure className="relative w-full h-full">
             <img
-              className="w-full h-[calc(100vh-30rem)] rounded-xl object-cover object-bottom"
+              className="w-full h-[100vh] lg:h-[calc(100vh-2rem)] rounded-xl object-cover object-bottom"
               src={Bg1}
               alt="Bg1"
             />

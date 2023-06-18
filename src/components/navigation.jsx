@@ -12,6 +12,11 @@ import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
   const [openNav, setOpenNav] = useState(false);
+  const [mobileView, setMobileView] = useState(false);
+
+  useEffect(() => {
+    setMobileView(window.innerWidth < 800)
+  },[])
  
   useEffect(() => {
     window.addEventListener(
@@ -38,7 +43,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
         >
-        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'process'} spy={true} smooth={true} offset={-300} duration={700} onClick={() => {setOpenNav(false)}}>
+        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'process'} spy={true} smooth={true} offset={mobileView ? -200 : 0} duration={700} onClick={() => {setOpenNav(false)}}>
             Process
         </Link>
         </Typography>
@@ -48,7 +53,7 @@ const Navigation = () => {
         color="blue-gray"
         className="p-1 font-normal"
         >
-        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'meals'} spy={true} smooth={true} offset={-300} duration={700} onClick={() => {setOpenNav(false)}}>
+        <Link className="flex items-center transition-all duration-300 ease-in-out cursor-pointer hover:text-brown-500" to={'meals'} spy={true} smooth={true} offset={mobileView ? -300 : -100} duration={700} onClick={() => {setOpenNav(false)}}>
             Meals
         </Link>
         </Typography>
