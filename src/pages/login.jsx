@@ -5,7 +5,7 @@ import { Typography } from '@material-tailwind/react'
 import { app } from '../config/firebase.config'
 
 import { FcGoogle } from 'react-icons/fc'
-import { GoogleAuthProvider, getAuth, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithPopup, } from 'firebase/auth'
+import { GoogleAuthProvider, getAdditionalUserInfo, getAuth, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithPopup, } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
 import { useStateValue } from '../context/StateProvider'
@@ -23,31 +23,46 @@ const Login = ({setAuth}) => {
     // Logging in with Google Auth using firebase
     const loginWithGoogle = async () => {
         await signInWithPopup(firebaseAuth, provider).then((userCred) => {
-        if(userCred){
-            setAuth(true);
-            window.localStorage.setItem("auth", "true");
-
-            firebaseAuth.onAuthStateChanged((userCred) => {
+            const details = getAdditionalUserInfo(userCred);
+            console.log(details.isNewUser);
             if(userCred){
-                dispatch({
-                    type: actionType.SET_USER,
-                    user: userCred
+                setAuth(true);
+                window.localStorage.setItem("auth", "true");
+
+                firebaseAuth.onAuthStateChanged((userCred) => {
+                    console.log(userCred)
+                if(userCred){
+                    dispatch({
+                        type: actionType.SET_USER,
+                        user: userCred
+                    })
+                    if(details.isNewUser){
+                        navigate("/login/form", {replace: true})
+                    }
+                    else{
+                        navigate("/home/recipes", {replace: true})
+                    }
+                }else{
+                    setAuth(false);
+                    dispatch({
+                        type: actionType.SET_USER,
+                        user: null,
+                    })
+                    navigate("/login");
+                }
                 })
-                navigate("/home/recipes", {replace: true})
-            }else{
-                setAuth(false);
-                dispatch({
-                    type: actionType.SET_USER,
-                    user: null,
-                })
-                navigate("/login");
             }
-            })
-        }
         }).catch((err) => {
         console.log(err);
         })
     }
+
+    // Routing the user back to home screen if the user has already logged in
+    useEffect(() => {
+        if(window.localStorage.getItem("auth") === "true"){
+            navigate("/home/recipes", {replace: true})
+        }
+    }, [])
 
     // Function to handle the changes of input field of email
     const handleChange = (e) => {

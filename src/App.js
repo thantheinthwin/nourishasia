@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
 import { app } from './config/firebase.config'
 import { getAuth } from 'firebase/auth'
 
-import { Home, LandingPage, LoginPage } from './pages'
+import { Home, LandingPage, LoginPage, UserDataEntryForm } from './pages'
 import { useStateValue } from './context/StateProvider'
 import { actionType } from './context/reducer'
 
@@ -40,7 +43,7 @@ const App = () => {
     })
   }, []);
 
-  // Routing the user back to home screen if the user has already logged in
+  // Routing the user back to landing page if the user has already logged in
   useEffect(() => {
     if(window.localStorage.getItem("auth") === "false"){
         navigate("/", {replace: true})
@@ -48,15 +51,16 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
     <AnimatePresence mode='wait'>
       <Routes>
         <Route path='/' element={<LandingPage/>}/>
         <Route path='/login' element={<LoginPage setAuth={setAuth}/>}/>
         <Route path='/home/*' element={<Home/>}/>
+        <Route path='/login/form' element={<UserDataEntryForm/>}/>
       </Routes>
     </AnimatePresence>
-    </div>
+    </LocalizationProvider>
   )
 }
 
