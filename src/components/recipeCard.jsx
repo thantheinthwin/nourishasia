@@ -19,14 +19,14 @@ const RecipeCard = (props) => {
     <Card className="grid" key={key}>
       <CardBody className="grid gap-4">
         <img
-          src={item.img}
+          src={item.image}
           alt="img"
           className="object-cover rounded-md shadow"
         />
         <Typography variant="h5" color="blue-gray">
-          {item.name}
+          {item.label}
         </Typography>
-        <Typography>{item.calorie} calories</Typography>
+        <Typography>{item.calories.toFixed(2)} calories</Typography>
       </CardBody>
       <CardFooter className="self-end">
         <Button
@@ -39,9 +39,7 @@ const RecipeCard = (props) => {
       <RecipeDialog
         open={open}
         handleOpen={handleOpen}
-        dish={item.name}
-        calorie={item.calorie}
-        img={item.img}
+        recipe={item}
       />
     </Card>
   );

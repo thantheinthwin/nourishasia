@@ -5,7 +5,7 @@ import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers'
 const UserDataEntry = () => {
   return (
     <div className='flex w-full h-screen bg-secondary'>
-        <Card className='grid w-11/12 gap-2 m-auto lg:max-w-md h-fit'>
+        <Card className='grid w-11/12 gap-2 m-auto lg:w-fit h-fit'>
             <CardBody className='grid gap-2'>
                 <Typography variant='h5'>Welcome to <span className='text-2xl font-bold font-logo text-accent'><span className='text-3xl'>N</span>ourishAsia</span> !</Typography>
                 <Typography variant='small' className='text-blue-gray-500'>To offer personalized nutritional advice, we kindly request some information. Please answer the following questions:</Typography>

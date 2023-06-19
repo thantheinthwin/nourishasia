@@ -24,7 +24,7 @@ const Login = ({setAuth}) => {
     const loginWithGoogle = async () => {
         await signInWithPopup(firebaseAuth, provider).then((userCred) => {
             const details = getAdditionalUserInfo(userCred);
-            console.log(details.isNewUser);
+            // console.log(details.isNewUser);
             if(userCred){
                 setAuth(true);
                 window.localStorage.setItem("auth", "true");
@@ -121,28 +121,28 @@ const Login = ({setAuth}) => {
         // Verify that the user went through the email link and the saved email is not null
         if(isSignInWithEmailLink(firebaseAuth, window.location.href) && !saved_email){
             signInWithEmailLink(firebaseAuth, email, window.location.href)
-            // .then(() => {
-            //     setAuth(true);
-            //     window.localStorage.setItem("auth", "true");
+            .then(() => {
+                setAuth(true);
+                window.localStorage.setItem("auth", "true");
 
-            //     firebaseAuth.onAuthStateChanged((userCred) => {
-            //     if(userCred){
-            //         dispatch({
-            //             type: actionType.SET_USER,
-            //             user: userCred
-            //         })
-            //         navigate("/user/home", {replace: true})
-            //     }else{
-            //         setAuth(false);
-            //         dispatch({
-            //             type: actionType.SET_USER,
-            //             user: null,
-            //         })
-            //         navigate("/login");
-            //     }
-            //     })
-            //     window.localStorage.removeItem('emailForSignIn');
-            // })
+                firebaseAuth.onAuthStateChanged((userCred) => {
+                if(userCred){
+                    dispatch({
+                        type: actionType.SET_USER,
+                        user: userCred
+                    })
+                    navigate("/user/home/recipes", {replace: true})
+                }else{
+                    setAuth(false);
+                    dispatch({
+                        type: actionType.SET_USER,
+                        user: null,
+                    })
+                    navigate("/login");
+                }
+                })
+                window.localStorage.removeItem('emailForSignIn');
+            })
             .catch((error) => {
                 console.log(error)
             })

@@ -7,37 +7,26 @@ import {
     Button,
     List,
     ListItem,
+    Typography,
 } from '@material-tailwind/react'
 
 const RecipeDialog = (props) => {
   
 
-  const {open, handleOpen, dish, calorie, img} = {...props};
+  const {open, handleOpen, recipe} = {...props};
 
   return (
-    <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>{dish}</DialogHeader>
-        <DialogBody divider className='flex'>
-          <img src={img} alt="meal" className='rounded-md h-96'/>
-          <List className='w-full'>
-            <ListItem>
-                Calories : {calorie} calories
-            </ListItem>
-            <ListItem>
-                Protein : Around 20-25 grams
-            </ListItem>
-            <ListItem>
-                Carbohydrates: Approximately 40-50 grams
-            </ListItem>
-            <ListItem>
-                Fat: Approximately 10-15 grams
-            </ListItem>
-            <ListItem>
-                Fiber: Around 5-8 grams
-            </ListItem>
-            <ListItem>
-                Sodium: Approximately 500-800 grams
-            </ListItem>
+    <Dialog open={open} handler={handleOpen} className='m'>
+        <DialogHeader>{recipe.label}</DialogHeader>
+        <DialogBody divider className='grid lg:flex'>
+          <div className='flex items-center gap-2 py-2 justify-evenly lg:flex-col bg-blue-gray-50 md:bg-transparent md:justify-start'>
+            <img src={recipe.image} alt="meal" className='object-cover w-20 h-20 rounded-md md:w-fit md:h-fit' loading='lazy'/>
+            <Typography variant='h5'>{recipe.calories.toFixed(2)} calories</Typography>
+          </div>
+          <List className='w-full overflow-y-scroll max-h-[calc(60vh-6rem)]'>
+            {
+              recipe.ingredientLines.map((line, i) => (<ListItem key={i}><span className='mr-2 font-bold'>{i+1}.</span>{line}</ListItem>))
+            }  
           </List>
         </DialogBody>
         <DialogFooter>

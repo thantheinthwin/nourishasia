@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Footer, Navigation } from '../components'
 
 import { Bg1, Hero, Meal1, Meal2, Meal3, Meal4, Meal5, Meal6, Meal7, Meal8 } from '../assets/img'
@@ -7,7 +7,6 @@ import {
   Typography,
   Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter } from '@material-tailwind/react'
 
@@ -58,6 +57,13 @@ const LandingPage = () => {
       calorie: '~330'
     },
   ]
+
+  // Routing the user back to home screen if the user has already logged in
+  useEffect(() => {
+    if(window.localStorage.getItem("auth") === "true"){
+        navigate("/home/recipes", {replace: true})
+    }
+  }, [])
 
   return (
     <div className='grid gap-16'>

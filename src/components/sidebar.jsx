@@ -27,14 +27,14 @@ import { getAuth } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
  
 const SideBar = (props) => {
-  const {open, setOpen} = {...props}
+  const {open, setOpen, filter, setFilter} = {...props}
   const [isRecipePage, setRecipePage] = useState(false);
-  // const [open, setOpen] = React.useState(false);
+
   const closeDrawer = () => setOpen(false);
 
   const navigate = useNavigate();
 
-  const cuisine = ['Chinese', 'Japanese', 'Thai', 'Indian', 'Korean', 'Vietnamese', 'Malaysian', 'Indonesian', 'Burmese']
+  const cuisine = ['All', 'Chinese', 'Japanese', 'Thai', 'Indian', 'Korean', 'Vietnamese', 'Malaysian', 'Indonesian', 'Burmese']
 
   const logOut = () => {
     const firebaseAuth = getAuth(app);
@@ -53,6 +53,12 @@ const SideBar = (props) => {
       setRecipePage(false);
     }
   },[window.location.href])
+
+  const handleChange = (e, name) => {
+    const newFilter = {...filter};
+    newFilter[name] = e;
+    setFilter(newFilter);
+  }
  
   return (
     <React.Fragment>
@@ -61,19 +67,20 @@ const SideBar = (props) => {
         <div className="max-w-[17rem] flex flex-col p-2 pb-6 shadow-xl shadow-blue-gray-900/5 h-screen lg:hidden justify-between">
           <div className="flex flex-col">
             <div className="flex items-center gap-4 p-4 mb-2">
-              <img src={Logo} alt="brand" className="" />
+              <img src={Logo} alt="brand" />
             </div>
             <List className="grid">
               {isRecipePage && (
                 <AnimatePresence>
                 <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25}}>
                   <div className="grid gap-4">
-                      <Select label="Food Choice">
-                          <Option>Vegen</Option>
-                          <Option>Carnism</Option>
+                      <Select label="Food Choice" value={filter.foodChoice} onChange={(e) => handleChange(e, 'foodChoice')}>
+                        <Option value="all">All</Option>
+                        <Option value="Vegan">Vegen</Option>
+                        <Option value="Non-vegan">Non-vegan</Option>
                       </Select>
-                      <Select label="Cuisine">
-                          {cuisine.map((item, i) => (<Option key={i}>{item}</Option>))}
+                      <Select label="Cuisine" value={filter.Cuisine} onChange={(e) => handleChange(e, 'Cuisine')} >
+                        {cuisine.map((item, i) => (<Option key={i} value={item}>{item}</Option>))}
                       </Select>
                       <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50">Filter</div>
                   </div>
@@ -138,12 +145,13 @@ const SideBar = (props) => {
               <AnimatePresence>
               <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25}}>
                 <div className="grid gap-4">
-                    <Select label="Food Choice">
-                        <Option>Vegen</Option>
-                        <Option>Carnism</Option>
+                    <Select label="Food Choice" value={filter.foodChoice} onChange={(e) => handleChange(e, 'foodChoice')}>
+                      <Option value="all">All</Option>
+                      <Option value="Vegen">Vegen</Option>
+                      <Option value="Non-vegan">Non-vegan</Option>
                     </Select>
-                    <Select label="Cuisine">
-                        {cuisine.map((item, i) => (<Option key={i}>{item}</Option>))}
+                    <Select label="Cuisine" value={filter.Cuisine} onChange={(e) => handleChange(e, 'Cuisine')} >
+                      {cuisine.map((item, i) => (<Option key={i} value={item}>{item}</Option>))}
                     </Select>
                     <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50">Filter</div>
                 </div>

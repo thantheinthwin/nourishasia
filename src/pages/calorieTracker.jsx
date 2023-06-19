@@ -38,6 +38,7 @@ const CalorieTracker = () => {
   }
 
   const handleChange = (e, i) => {
+    // console.log(e);
     const {name, value} = e.target;
     const onChangeVal = [...data];
     onChangeVal[i][name] = value;
