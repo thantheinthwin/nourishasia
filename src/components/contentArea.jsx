@@ -2,11 +2,11 @@ import React from 'react'
 import { AddRecipePage, CalorieTrackerPage, ProfilePage, RecipePage } from '../pages'
 import { Route, Routes } from 'react-router-dom'
 
-const ContentArea = () => {
+const ContentArea = (props) => {
   const routes = [
     {
       path: '/recipes',
-      element: <RecipePage/>
+      element: <RecipePage recipes={props.recipes}/>
     },
     {
       path: '/addRecipes',

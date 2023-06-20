@@ -15,7 +15,8 @@ import {
   FolderIcon,
   PowerIcon,
   ArrowDownTrayIcon,
-  BeakerIcon
+  BeakerIcon,
+  BookmarkIcon
 } from "@heroicons/react/24/solid";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -27,8 +28,9 @@ import { getAuth } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
  
 const SideBar = (props) => {
-  const {open, setOpen, filter, setFilter} = {...props}
+  const {open, setOpen, filter, setFilter, showRecipe} = {...props}
   const [isRecipePage, setRecipePage] = useState(false);
+  const [formattedQuery, setFormattedQuery] = useState('');
 
   const closeDrawer = () => setOpen(false);
 
@@ -59,6 +61,16 @@ const SideBar = (props) => {
     newFilter[name] = e;
     setFilter(newFilter);
   }
+
+  useEffect(()=>{
+    var foodChoice = '';
+    if(filter.foodChoice !== 'Non-vegan'){
+      foodChoice = filter.foodChoice;
+    }
+    setFormattedQuery(foodChoice + ' ' + filter.Cuisine)
+  },[filter])
+
+  console.log(formattedQuery)
  
   return (
     <React.Fragment>
@@ -76,13 +88,13 @@ const SideBar = (props) => {
                   <div className="grid gap-4">
                       <Select label="Food Choice" value={filter.foodChoice} onChange={(e) => handleChange(e, 'foodChoice')}>
                         <Option value="all">All</Option>
-                        <Option value="Vegan">Vegen</Option>
+                        <Option value="Vegan">Vegan</Option>
                         <Option value="Non-vegan">Non-vegan</Option>
                       </Select>
                       <Select label="Cuisine" value={filter.Cuisine} onChange={(e) => handleChange(e, 'Cuisine')} >
                         {cuisine.map((item, i) => (<Option key={i} value={item}>{item}</Option>))}
                       </Select>
-                      <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50">Filter</div>
+                      <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50" onClick={()=>showRecipe(formattedQuery)}>Filter</div>
                   </div>
                   <hr className="my-2 border-blue-gray-50" />
                 </motion.div>
@@ -121,6 +133,14 @@ const SideBar = (props) => {
                   Profile
                 </NavLink>
               </ListItem>
+              <ListItem onClick={closeDrawer}>
+                <NavLink to={'/home/savedRecipes'}  className='flex w-full'>
+                  <ListItemPrefix>
+                    <BookmarkIcon className="w-5 h-5" />
+                  </ListItemPrefix>
+                  Saved Recipes
+                </NavLink>
+              </ListItem>
             </List>
           </div>
           <List>
@@ -146,14 +166,13 @@ const SideBar = (props) => {
               <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25}}>
                 <div className="grid gap-4">
                     <Select label="Food Choice" value={filter.foodChoice} onChange={(e) => handleChange(e, 'foodChoice')}>
-                      <Option value="all">All</Option>
-                      <Option value="Vegen">Vegen</Option>
+                      <Option value="Vegan">Vegan</Option>
                       <Option value="Non-vegan">Non-vegan</Option>
                     </Select>
                     <Select label="Cuisine" value={filter.Cuisine} onChange={(e) => handleChange(e, 'Cuisine')} >
                       {cuisine.map((item, i) => (<Option key={i} value={item}>{item}</Option>))}
                     </Select>
-                    <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50">Filter</div>
+                    <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50" onClick={() => showRecipe(formattedQuery)}>Filter</div>
                 </div>
                 <hr className="my-2 border-blue-gray-50" />
               </motion.div>
@@ -192,6 +211,14 @@ const SideBar = (props) => {
                 Profile
               </NavLink>
             </ListItem>
+            <ListItem onClick={closeDrawer}>
+                <NavLink to={'/home/savedRecipes'}  className='flex w-full'>
+                  <ListItemPrefix>
+                    <BookmarkIcon className="w-5 h-5" />
+                  </ListItemPrefix>
+                  Saved Recipes
+                </NavLink>
+              </ListItem>
           </List>
         </div>
         <List>

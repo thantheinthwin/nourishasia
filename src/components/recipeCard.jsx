@@ -16,7 +16,7 @@ const RecipeCard = (props) => {
   const handleOpen = () => setOpen(!open);
 
   return (
-    <Card className="grid" key={key}>
+    <Card className="grid max-h-[34rem] justify-center" key={key}>
       <CardBody className="grid gap-4">
         <img
           src={item.image}
@@ -26,9 +26,9 @@ const RecipeCard = (props) => {
         <Typography variant="h5" color="blue-gray">
           {item.label}
         </Typography>
-        <Typography>{item.calories.toFixed(2)} calories</Typography>
       </CardBody>
-      <CardFooter className="self-end">
+      <CardFooter className="flex items-end self-end justify-between">
+        <Typography>{item.calories.toFixed(2)} <br/>calories</Typography>
         <Button
           className="bg-primary hover:shadow-brown-200"
           onClick={handleOpen}

@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 const HomeNavBar = (props) => {
-  const {search, setSearch} = {...props};
+  const {search, setSearch, showRecipe} = {...props};
   const handleChange = (e) => {
     setSearch(e.target.value)
   }
@@ -28,7 +28,7 @@ const HomeNavBar = (props) => {
           value={search}
           onChange={(e) => handleChange(e)}
         />
-        <Button size="sm" className="!absolute right-1 top-1 rounded bg-accent shadow-none hover:shadow-brown-100">
+        <Button size="sm" className="!absolute right-1 top-1 rounded bg-accent shadow-none hover:shadow-brown-100" onClick={() => showRecipe(search)}>
           Search
         </Button>
       </div>

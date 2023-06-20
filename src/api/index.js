@@ -27,8 +27,8 @@ export const getNutritionalFacts = async (ingredientList) => {
 }
 
 export const getRecipe = async (query) => {
-    const from = 0; // Starting index of the results
-    const to = 20; // Ending index of the results
+    const from = 0;
+    const to = 25;
 
     try {
         const response = await axios.get(`${baseURL}/search?q=${encodeURIComponent(query)}&app_id=${recipe_search_api.apiId}&app_key=${recipe_search_api.apiKey}&from=${from}&to=${to}`);
