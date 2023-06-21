@@ -69,8 +69,6 @@ const SideBar = (props) => {
     }
     setFormattedQuery(foodChoice + ' ' + filter.Cuisine)
   },[filter])
-
-  console.log(formattedQuery)
  
   return (
     <React.Fragment>
@@ -87,14 +85,13 @@ const SideBar = (props) => {
                 <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25}}>
                   <div className="grid gap-4">
                       <Select label="Food Choice" value={filter.foodChoice} onChange={(e) => handleChange(e, 'foodChoice')}>
-                        <Option value="all">All</Option>
                         <Option value="Vegan">Vegan</Option>
                         <Option value="Non-vegan">Non-vegan</Option>
                       </Select>
                       <Select label="Cuisine" value={filter.Cuisine} onChange={(e) => handleChange(e, 'Cuisine')} >
                         {cuisine.map((item, i) => (<Option key={i} value={item}>{item}</Option>))}
                       </Select>
-                      <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50" onClick={()=>showRecipe(formattedQuery)}>Filter</div>
+                      <div className="p-2 text-center transition-all duration-100 ease-in-out border rounded-md cursor-pointer hover:bg-blue-gray-50 border-blue-gray-50" onClick={()=>{showRecipe(formattedQuery); closeDrawer()}}>Filter</div>
                   </div>
                   <hr className="my-2 border-blue-gray-50" />
                 </motion.div>

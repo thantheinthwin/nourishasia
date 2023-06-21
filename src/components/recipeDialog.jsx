@@ -11,8 +11,6 @@ import {
 } from '@material-tailwind/react'
 
 const RecipeDialog = (props) => {
-  
-
   const {open, handleOpen, recipe} = {...props};
 
   return (
