@@ -57,7 +57,9 @@ const UserDataEntry = () => {
 
   // preventing the user from re-entering the data in useDataEntry page
   useEffect(() => {
-    
+    if(window.localStorage.getItem('firstTime') === 'false'){
+      navigate("/home/recipes", {replace: true});
+    }
   }, [])
 
   return (

@@ -37,10 +37,12 @@ const Login = ({setAuth}) => {
                         user: userCred
                     })
                     if(details.isNewUser){
-                        navigate("/login/form", {replace: true})
+                        window.localStorage.setItem('firstTime', 'true');
+                        navigate("/login/form", {replace: true});
                     }
                     else{
-                        navigate("/home/recipes", {replace: true})
+                        window.localStorage.setItem('firstTime', 'false');
+                        navigate("/home/recipes", {replace: true});
                     }
                 }else{
                     setAuth(false);

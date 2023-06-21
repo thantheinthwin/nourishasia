@@ -42,6 +42,7 @@ const SideBar = (props) => {
     const firebaseAuth = getAuth(app);
     firebaseAuth.signOut().then(() => {
       window.localStorage.setItem("auth", "false");
+      window.localStorage.removeItem('firstTime');
     }).catch((e) => console.log(e));
 
     navigate('/login', {replace: true});
