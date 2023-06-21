@@ -44,7 +44,7 @@ const UserDataEntry = () => {
 
   const saveUserData = async (data) => {
     data.createdAt = serverTimestamp();
-    data.updatedAt = serverTimestamp();
+    data.updatedAt = null;
     const uid = firebaseAuth.currentUser?.uid;
 
     try {
@@ -55,12 +55,12 @@ const UserDataEntry = () => {
     }
   }
 
-  // preventing the user from re-entering the data in useDataEntry page
-  useEffect(() => {
-    if(window.localStorage.getItem('firstTime') === 'false'){
-      navigate("/home/recipes", {replace: true});
-    }
-  }, [])
+  // // preventing the user from re-entering the data in useDataEntry page
+  // useEffect(() => {
+  //   if(window.localStorage.getItem('firstTime') === 'false'){
+  //     navigate("/home/recipes", {replace: true});
+  //   }
+  // }, [])
 
   return (
     <div className='flex w-full h-screen bg-secondary'>
@@ -93,7 +93,7 @@ const UserDataEntry = () => {
                     <div className='flex items-center px-1 border bg-blue-gray-50 border-blue-gray-200 rounded-r-md'>kg</div>
                   </div>
                   {
-                    window.innerWidth > 800 ? <DesktopDatePicker format='DD-MM-YYYY' onChange={(e) => handleDatePickerChange(e)}/> : <MobileDatePicker format='DD-MM-YYYY' label='Birthday'/>
+                    window.innerWidth > 800 ? <DesktopDatePicker format='DD-MM-YYYY' onChange={(e) => handleDatePickerChange(e)}/> : <MobileDatePicker format='DD-MM-YYYY' label='Birthday' onChange={(e) => handleDatePickerChange(e)}/>
                   }
                   <Button className='bg-accent shadow-brown-100 hover:shadow-brown-200' onClick={() => saveUserData(userData)}>Submit</Button>
                 </form>

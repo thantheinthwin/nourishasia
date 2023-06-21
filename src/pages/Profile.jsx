@@ -5,12 +5,14 @@ import { app, db } from '../config/firebase.config'
 import { getAuth } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 
+import moment from 'moment/moment'
+
 const Profile = () => {
   const [userData, setUserData] = useState('');
   const firebaseAuth = getAuth(app);
   const uid = firebaseAuth.currentUser?.uid;
   console.log(uid)
-  console.log('userData : ', userData)
+  // console.log('userData : ', userData)
 
   const getData = async () => {
     const docRef = doc(db, "users", uid);
@@ -25,7 +27,11 @@ const Profile = () => {
     }
   }
 
+  // retrieving data from firestore
   useEffect(()=>getData,[])
+  const age = calculateAge(userData.birthday.toDate().toISOString());
+  console.log(age);
+  // console.log(userData.birthday.toDate().toISOString());
 
   return (
     <div className='flex w-full h-full p-4'>
@@ -34,13 +40,23 @@ const Profile = () => {
         <Typography variant='h5'>Profile</Typography>
         <Typography>Name: {userData.name}</Typography>
         <Typography>Gender: {userData.gender}</Typography>
-        <Typography>Age: </Typography>
+        <Typography>Age: {age} years</Typography>
         <Typography>Height: {userData.height} cm</Typography>
         <Typography>Weight: {userData.weight} kg</Typography>
       </CardBody>
     </Card>
     </div>
   )
+}
+
+export function calculateAge(birthdateISOString) {
+  const birthdate = moment(birthdateISOString);
+  const currentDatetime = moment();
+  const ageDuration = moment.duration(currentDatetime.diff(birthdate));
+
+  const ageYears = ageDuration.years();
+  
+  return ageYears;
 }
 
 export default Profile
