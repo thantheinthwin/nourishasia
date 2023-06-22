@@ -30,7 +30,7 @@ const Login = ({setAuth}) => {
                 window.localStorage.setItem("auth", "true");
 
                 firebaseAuth.onAuthStateChanged((userCred) => {
-                    console.log(userCred)
+                    // console.log(userCred)
                 if(userCred){
                     dispatch({
                         type: actionType.SET_USER,

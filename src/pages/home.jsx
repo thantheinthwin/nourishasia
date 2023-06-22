@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ContentArea, HomeNavBar, SideBar, useRecipeSearch } from '../components'
+import { ContentArea, HomeNavBar, SideBar } from '../components'
 import { getRecipe } from '../api';
 
 const Home = () => {
@@ -8,6 +8,8 @@ const Home = () => {
   const [filter, setFilter] = useState({foodChoice: '', Cuisine: ''});
   const [search, setSearch] = useState('');
   const [recipes, setRecipes] = useState([]);
+
+  // console.log(recipes)
 
   const showRecipe = (query) => {
     getRecipe(query)
