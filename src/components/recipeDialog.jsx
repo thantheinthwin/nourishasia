@@ -3,7 +3,6 @@ import {
     Dialog,
     DialogBody,
     DialogHeader,
-    DialogFooter,
     Button,
     List,
     ListItem,
@@ -150,7 +149,7 @@ const RecipeDialog = (props) => {
               </Button>
             </div>
             {
-              window.location.href.split('/')[4] == 'profile' && 
+              window.location.href.split('/')[4] === 'profile' && 
               <Button
                 variant="outlined"
                 color="red"
@@ -161,7 +160,7 @@ const RecipeDialog = (props) => {
               </Button>
             }
             {
-              window.location.href.split('/')[4] == 'savedRecipes' && 
+              window.location.href.split('/')[4] === 'savedRecipes' && 
               <Button
                 variant="outlined"
                 color="red"

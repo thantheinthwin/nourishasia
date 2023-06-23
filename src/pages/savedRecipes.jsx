@@ -1,7 +1,6 @@
 import { doc, getDoc } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { db } from '../config/firebase.config';
-import { getSavedRecipe } from '../api';
 import { RecipeCard } from '../components';
 
 const SavedRecipes = () => {

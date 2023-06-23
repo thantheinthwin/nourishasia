@@ -18,7 +18,7 @@ const UploadedRecipeCard = (props) => {
             <img src={item.image} alt={item.label} className='w-20'/>
             <Typography variant='h6'>{item.label}</Typography>
         </div>
-        <Button variant='outlined' color='green'><MagnifyingGlassIcon className='w-5 h-5' onClick={handleOpen}/></Button>
+        <Button variant='outlined' color='green' onClick={handleOpen}><MagnifyingGlassIcon className='w-5 h-5'/></Button>
         <RecipeDialog
             open={open}
             handleOpen={handleOpen}

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
-  Typography,
   Option,
   Select,
   List,
   ListItem,
   ListItemPrefix,
   Drawer,
-  ListItemSuffix,
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
@@ -50,7 +47,7 @@ const SideBar = (props) => {
   }
 
   useEffect(() => {
-    if(window.location.href.split('/')[4] == 'recipes'){
+    if(window.location.href.split('/')[4] === 'recipes'){
       setRecipePage(true);
     }
     else{
@@ -99,7 +96,7 @@ const SideBar = (props) => {
                 </motion.div>
                 </AnimatePresence>
               )}
-              <ListItem onClick={closeDrawer}>
+              <ListItem onClick={closeDrawer} className='p-0'>
                 <NavLink to={'/home/recipes'} className='flex w-full'>
                   <ListItemPrefix>
                     <FolderIcon className="w-5 h-5" />
@@ -107,7 +104,7 @@ const SideBar = (props) => {
                   Recipes
                 </NavLink>
               </ListItem>
-              <ListItem onClick={closeDrawer}>
+              <ListItem onClick={closeDrawer} className='p-0'>
                 <NavLink to={'/home/addRecipes'} className='flex w-full'>
                   <ListItemPrefix>
                     <ArrowDownTrayIcon className="w-5 h-5" />
@@ -115,7 +112,7 @@ const SideBar = (props) => {
                   Add recipe
                 </NavLink>
               </ListItem>
-              <ListItem onClick={closeDrawer}>
+              <ListItem onClick={closeDrawer} className='p-0'>
                 <NavLink to={'/home/calorie_tracker'} className='flex w-full'>
                   <ListItemPrefix>
                     <BeakerIcon className="w-5 h-5" />
@@ -124,7 +121,7 @@ const SideBar = (props) => {
                 </NavLink>
               </ListItem>
               <hr className="my-2 border-blue-gray-50" />
-              <ListItem onClick={closeDrawer}>
+              <ListItem onClick={closeDrawer} className='p-0'>
                 <NavLink to={'/home/profile'}  className='flex w-full'>
                   <ListItemPrefix>
                     <UserCircleIcon className="w-5 h-5" />
@@ -132,7 +129,7 @@ const SideBar = (props) => {
                   Profile
                 </NavLink>
               </ListItem>
-              <ListItem onClick={closeDrawer}>
+              <ListItem onClick={closeDrawer} className='p-0'>
                 <NavLink to={'/home/savedRecipes'}  className='flex w-full'>
                   <ListItemPrefix>
                     <BookmarkIcon className="w-5 h-5" />

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ContentArea, HomeNavBar, SideBar } from '../components'
 import { getRecipe } from '../api';
-import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [sideBarOpen, setSideBarOpen] = useState(false);

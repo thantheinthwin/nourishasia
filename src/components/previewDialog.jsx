@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
     Dialog,
     DialogBody,
@@ -22,7 +22,6 @@ const PreviewDialog = (props) => {
   const navigate = useNavigate();
 
   const {open, handleOpen, recipe, name, img} = {...props};
-  const [dish, saveDish] = useState({label: '', image: '', calories: '', ingredientLines: '', source: ''})
 
 //   console.log('dish', dish)
   const handleSubmit = async (url, filename) => {    
