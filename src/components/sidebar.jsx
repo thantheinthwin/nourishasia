@@ -40,12 +40,12 @@ const SideBar = (props) => {
 
   const logOut = () => {
     const firebaseAuth = getAuth(app);
-    firebaseAuth.signOut().then(() => {
+    firebaseAuth.signOut()
+    .then(() => {
       window.localStorage.setItem("auth", "false");
       window.localStorage.removeItem('firstTime');
+      navigate('/', {replace: true});
     }).catch((e) => console.log(e));
-
-    navigate('/login', {replace: true});
   }
 
   useEffect(() => {

@@ -97,7 +97,7 @@ const AddRecipe = () => {
           {/* Ingredient Line Input */}
           <div className="grid gap-2 p-2 border rounded-md">
             <div className="flex items-center justify-between">
-              <Typography>Ingredient Line</Typography>
+              <Typography variant='h6'>Ingredient Line</Typography>
               <Button
                 variant="outlined"
                 size="sm"

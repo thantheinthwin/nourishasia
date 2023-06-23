@@ -24,9 +24,8 @@ const PreviewDialog = (props) => {
   const {open, handleOpen, recipe, name, img} = {...props};
   const [dish, saveDish] = useState({label: '', image: '', calories: '', ingredientLines: '', source: ''})
 
-  console.log('dish', dish);
-
-  const handleSubmit = async (url) => {    
+//   console.log('dish', dish)
+  const handleSubmit = async (url, filename) => {    
     const uid = firebaseAuth.currentUser.uid;
     const ingredientLines = recipe.ingredients.map(line => line.text)
     const data = {
@@ -36,7 +35,8 @@ const PreviewDialog = (props) => {
         ingredientLines: ingredientLines,
         source: uid,
         createdAt: serverTimestamp(),
-        updatedAt: null
+        updatedAt: null,
+        filename: filename
     }
 
     try {
@@ -60,7 +60,7 @@ const PreviewDialog = (props) => {
         getDownloadURL(imageRef)
         .then((url) => {
             console.log('url',url);
-            handleSubmit(url);
+            handleSubmit(url,imageRef.name);
         })
         .catch((error) => console.log(error))
     })
@@ -73,7 +73,7 @@ const PreviewDialog = (props) => {
         <DialogHeader>{name}</DialogHeader>
         <DialogBody divider className='grid gap-2 lg:flex'>
             <div className='flex items-center w-full gap-2 py-2 rounded-md justify-evenly lg:flex-col bg-blue-gray-50 md:bg-transparent md:justify-start'>
-            <img src={URL.createObjectURL(img)} alt="meal" className='object-cover w-20 h-20 rounded-md md:w-fit md:h-fit' loading='lazy'/>
+            <img src={URL.createObjectURL(img)} alt="meal" className='object-cover w-20 h-20 rounded-md md:w-fit md:h-96' loading='lazy'/>
             <Typography variant='h5' className='text-accent'>{recipe.calories.toFixed(2)} calories</Typography>
             </div>
             <div className='flex flex-col w-full max-h-72 lg:max-h-96'>

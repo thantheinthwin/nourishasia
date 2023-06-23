@@ -1,5 +1,5 @@
 import React from 'react'
-import { AddRecipePage, CalorieTrackerPage, ProfilePage, RecipePage } from '../pages'
+import { AddRecipePage, CalorieTrackerPage, ProfilePage, RecipePage, SavedRecipesPage } from '../pages'
 import { Route, Routes } from 'react-router-dom'
 
 const ContentArea = (props) => {
@@ -19,6 +19,10 @@ const ContentArea = (props) => {
     {
       path: '/profile',
       element: <ProfilePage/>
+    },
+    {
+      path: '/savedRecipes',
+      element: <SavedRecipesPage/>
     }
   ]
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ContentArea, HomeNavBar, SideBar } from '../components'
 import { getRecipe } from '../api';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -9,7 +10,7 @@ const Home = () => {
   const [search, setSearch] = useState('');
   const [recipes, setRecipes] = useState([]);
 
-  // console.log(recipes)
+  const navigate = useNavigate();
 
   const showRecipe = (query) => {
     getRecipe(query)

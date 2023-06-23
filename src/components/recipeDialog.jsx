@@ -10,9 +10,69 @@ import {
     Typography,
 } from '@material-tailwind/react'
 
+import { db, storage } from '../config/firebase.config';
+import { doc, deleteDoc, getDoc, updateDoc} from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { deleteObject, ref } from 'firebase/storage';
+import { useStateValue } from '../context/StateProvider';
+
 const RecipeDialog = (props) => {
+  const [{user}] = useStateValue();
   const {open, handleOpen, recipe} = {...props};
-  // console.log(recipe);
+  const navigate = useNavigate();
+  const deleteRef = ref(storage, `images/${recipe.filename}`);
+
+  const deleteRecipe = async () => {
+    try {
+      deleteDoc(doc(db, 'recipes', recipe.id))
+      .then(()=>{
+        deleteObject(deleteRef)
+        .then(()=>{
+          handleOpen();
+          navigate('/home/profile', {replace: true});
+        })
+        .catch((error)=>{console.error(error);})
+      })
+      .catch((error)=>{console.error(error);})
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const saveRecipe = async (uri) => {
+    const uid = user?.uid;
+
+    try {
+      const docRef = doc(db, 'users', uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const result = docSnap.data();
+        let savedRecipes = result['savedRecipes'];
+        if(!savedRecipes.includes(uri)){
+          savedRecipes.push(uri);
+          const recipeRef = doc(db, 'users', uid);
+          try {
+            updateDoc(recipeRef, {
+              savedRecipes: savedRecipes
+            })
+            .then(handleOpen)
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        else{
+          alert('Already saved');
+          handleOpen();
+        }
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Dialog open={open} handler={handleOpen} className='max-h-[calc(90vh-2rem)]'>
@@ -31,18 +91,31 @@ const RecipeDialog = (props) => {
             </List>
           </div>
         </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Close</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Save</span>
-          </Button>
+        <DialogFooter className='flex flex-row-reverse items-center justify-between'>
+          <div className='flex'>
+            <Button
+              variant="outlined"
+              color="red"
+              onClick={handleOpen}
+              className="mr-1"
+            >
+              <span>Close</span>
+            </Button>
+            <Button variant="gradient" color="green" onClick={()=>{saveRecipe(recipe.uri)}}>
+              <span>Save</span>
+            </Button>
+          </div>
+          {
+            window.location.href.split('/')[4] == 'profile' && 
+            <Button
+              variant="outlined"
+              color="red"
+              onClick={deleteRecipe}
+              className="mr-1"
+            >
+              <span>Delete</span>
+            </Button>
+          }
         </DialogFooter>
       </Dialog>
   )

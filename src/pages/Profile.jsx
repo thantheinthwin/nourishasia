@@ -1,25 +1,23 @@
-import { Button, Card, CardBody, CardFooter, Typography } from '@material-tailwind/react'
+import { Card, CardBody, Typography } from '@material-tailwind/react'
 import React, { useEffect, useState } from 'react'
 
-import { app, db } from '../config/firebase.config'
-import { getAuth } from 'firebase/auth'
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../config/firebase.config'
+import { doc, getDoc } from 'firebase/firestore'
 
 import moment from 'moment/moment'
-import { RecipeCard } from '../components'
+import { UploadedRecipes } from '../components'
+import { useStateValue } from '../context/StateProvider'
 
 const Profile = () => {
+  const [{user}] = useStateValue();
   const [userData, setUserData] = useState('');
-  const [recipes, setRecipes] = useState(null);
   const [age, setAge] = useState(null);
-  const firebaseAuth = getAuth(app);
-  const uid = firebaseAuth.currentUser?.uid;
+  // console.log(user.uid)
   // console.log(age)
   // console.log('userData : ', userData)
-  console.log(recipes)
 
   const getData = async () => {
-    const docRef = doc(db, "users", uid);
+    const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -32,69 +30,51 @@ const Profile = () => {
     }
   }
 
-  const getRecipeData = async () => {
-    const q = query(collection(db, 'recipes'), where('source', '==', uid));
-
-    const querySnapShot = await getDocs(q);
-    let uploadedRecipes = [];
-    querySnapShot.forEach((doc) => {
-      uploadedRecipes.push(doc.data());
-      // console.log(doc.id, '==', doc.data());
-    })
-    // console.log(uploadedRecipes)
-    setRecipes(uploadedRecipes);
-  }
-
   // retrieving data from firestore
   useEffect(()=>{
-    getData();
-    getRecipeData();
+    getData()
   },[])
 
   return (
-    <div className='flex flex-col w-full h-full gap-2 p-4 lg:flex-row'>
-      <Card className='h-fit w-fit'>
-        <CardBody className='grid gap-2'>
-          <Typography variant='h5'>Profile</Typography>
-          <table className='table-auto'>
-            <tbody>
-              <tr>
-                <td>Name</td>
-                <td className='px-2'>:</td>
-                <td className='font-thin'>{userData.name}</td>
-              </tr>
-              <tr>
-                <td>Gender</td>
-                <td className='px-2'>:</td>
-                <td className='font-thin capitalize'>{userData.gender}</td>
-              </tr>
-              <tr>
-                <td>Age</td>
-                <td className='px-2'>:</td>
-                <td className='font-thin'>{age} years</td>
-              </tr>
-              <tr>
-                <td>Height</td>
-                <td className='px-2'>:</td>
-                <td className='font-thin'>{userData.height} cm</td>
-              </tr>
-              <tr>
-                <td>Weight</td>
-                <td className='px-2'>:</td>
-                <td className='font-thin'>{userData.weight} kg</td>
-              </tr>
-            </tbody>
-          </table>
-        </CardBody>
-      </Card>
-      <div className='h-fit w-fit'>
-        <div className='grid gap-2'>
-          <Typography variant='h5'>Uploaded Recipes</Typography>
-          <div className='grid grid-cols-1 gap-2 lg:grid-cols-2 xl:grid-cols-3'>
-            {recipes !== null && recipes.map((recipe, i) => (<RecipeCard item={recipe} key={i}/>))}
-          </div>
-        </div>
-      </div>
+    <div className='flex flex-col w-full h-[calc(100%-1rem)] gap-3 p-4 lg:flex-row overflow-y-scroll pb-20'>
+      {
+        (userData !== '' && age !== null) && 
+        <Card className='w-full md:w-96 h-fit'>
+          <CardBody className='grid gap-2'>
+            <Typography variant='h5'>Profile</Typography>
+            <table className='table-auto'>
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td className='px-2'>:</td>
+                  <td className='font-thin'>{userData.name}</td>
+                </tr>
+                <tr>
+                  <td>Gender</td>
+                  <td className='px-2'>:</td>
+                  <td className='font-thin capitalize'>{userData.gender}</td>
+                </tr>
+                <tr>
+                  <td>Age</td>
+                  <td className='px-2'>:</td>
+                  <td className='font-thin'>{age} years</td>
+                </tr>
+                <tr>
+                  <td>Height</td>
+                  <td className='px-2'>:</td>
+                  <td className='font-thin'>{userData.height} cm</td>
+                </tr>
+                <tr>
+                  <td>Weight</td>
+                  <td className='px-2'>:</td>
+                  <td className='font-thin'>{userData.weight} kg</td>
+                </tr>
+              </tbody>
+            </table>
+          </CardBody>
+        </Card>
+      }
+      <UploadedRecipes uid={user.uid}/>
     </div>
   )
 }

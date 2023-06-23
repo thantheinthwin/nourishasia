@@ -24,12 +24,10 @@ const App = () => {
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((userCred) => {
       if(userCred){
-        userCred.getIdToken().then((data) => {
-          setAuth(true);
-          dispatch({
-            type: actionType.SET_USER,
-            user: data,
-          })
+        setAuth(true);
+        dispatch({
+          type: actionType.SET_USER,
+          user: userCred,
         })
       }
       else {
