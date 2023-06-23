@@ -74,7 +74,7 @@ const Navigation = () => {
     <>
         <Navbar className="sticky inset-0 z-10 max-w-full px-4 py-2 rounded-none h-max lg:px-8 lg:py-4">
             <div className="flex items-center justify-between text-blue-gray-900">
-            <Typography variant='h3' className='font-logo text-accent'><span className='text-4xl'>N</span>ourisAsia</Typography>
+            <Typography variant='h3' className='font-logo text-accent'><span className='text-4xl'>N</span>ourishAsia</Typography>
             <div className="flex items-center gap-4">
                 <div className="hidden mr-4 lg:block">{navList}</div>
                 <NavLink className={"hidden shadow-none lg:inline-block"} to={"/login"}>

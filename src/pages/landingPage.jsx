@@ -82,10 +82,7 @@ const LandingPage = () => {
                 </Button>
             </NavLink>
           </div>
-          <img src={Hero} alt='Hero' className='object-cover col-span-1 rounded-md lg:h-full'/>
-          {/* <div className='grid col-span-1'>
-            
-          </div> */}
+          <img src={Hero} alt='Hero' className='object-cover col-span-1 rounded-md lg:h-96'/>
         </section>
         <section className='grid p-3' id='process'>
           <figure className="relative w-full h-full">
