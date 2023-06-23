@@ -6,18 +6,22 @@ import { doc, getDoc } from 'firebase/firestore'
 
 import moment from 'moment/moment'
 import { UploadedRecipes } from '../components'
-import { useStateValue } from '../context/StateProvider'
 
 const Profile = () => {
-  const [{user}] = useStateValue();
+  return (
+    <div className='flex flex-col w-full h-[calc(100%-1rem)] gap-3 p-4 lg:flex-row overflow-y-scroll pb-20'>
+      <ProfileCard />
+      <UploadedRecipes />
+    </div>
+  )
+}
+
+export const ProfileCard = () => {
   const [userData, setUserData] = useState('');
   const [age, setAge] = useState(null);
-  // console.log(user.uid)
-  // console.log(age)
-  // console.log('userData : ', userData)
 
-  const getData = async () => {
-    const docRef = doc(db, "users", user.uid);
+  const getData = async (uid) => {
+    const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -32,14 +36,11 @@ const Profile = () => {
 
   // retrieving data from firestore
   useEffect(()=>{
-    getData()
+    getData(localStorage.getItem('uid'))
   },[])
-
-  return (
-    <div className='flex flex-col w-full h-[calc(100%-1rem)] gap-3 p-4 lg:flex-row overflow-y-scroll pb-20'>
-      {
-        (userData !== '' && age !== null) && 
-        <Card className='w-full md:w-96 h-fit'>
+  
+  return(
+    <Card className='w-full md:w-96 h-fit'>
           <CardBody className='grid gap-2'>
             <Typography variant='h5'>Profile</Typography>
             <table className='table-auto'>
@@ -73,9 +74,6 @@ const Profile = () => {
             </table>
           </CardBody>
         </Card>
-      }
-      <UploadedRecipes uid={user.uid}/>
-    </div>
   )
 }
 

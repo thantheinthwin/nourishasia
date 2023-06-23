@@ -36,6 +36,7 @@ const Login = ({setAuth}) => {
                         type: actionType.SET_USER,
                         user: userCred
                     })
+                    window.localStorage.setItem('uid', userCred.uid);
                     if(details.isNewUser){
                         window.localStorage.setItem('firstTime', 'true');
                         navigate("/login/form", {replace: true});

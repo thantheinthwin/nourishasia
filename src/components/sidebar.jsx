@@ -44,6 +44,7 @@ const SideBar = (props) => {
     .then(() => {
       window.localStorage.setItem("auth", "false");
       window.localStorage.removeItem('firstTime');
+      window.localStorage.removeItem('uid');
       navigate('/', {replace: true});
     }).catch((e) => console.log(e));
   }

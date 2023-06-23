@@ -19,8 +19,11 @@ import { useStateValue } from '../context/StateProvider';
 const RecipeDialog = (props) => {
   const [{user}] = useStateValue();
   const {open, handleOpen, recipe} = {...props};
+
   const navigate = useNavigate();
   const deleteRef = ref(storage, `images/${recipe.filename}`);
+  // console.log(recipe);
+  const recipeObj = (({ label, ingredientLines, image, calories }) => ({ label, ingredientLines, image, calories }))(recipe);
 
   const deleteRecipe = async () => {
     try {
@@ -29,7 +32,7 @@ const RecipeDialog = (props) => {
         deleteObject(deleteRef)
         .then(()=>{
           handleOpen();
-          navigate('/home/profile', {replace: true});
+          navigate(0);
         })
         .catch((error)=>{console.error(error);})
       })
@@ -39,7 +42,7 @@ const RecipeDialog = (props) => {
     }
   }
 
-  const saveRecipe = async (uri) => {
+  const saveRecipe = async (recipeObj) => {
     const uid = user?.uid;
 
     try {
@@ -49,11 +52,10 @@ const RecipeDialog = (props) => {
       if (docSnap.exists()) {
         const result = docSnap.data();
         let savedRecipes = result['savedRecipes'];
-        if(!savedRecipes.includes(uri)){
-          savedRecipes.push(uri);
-          const recipeRef = doc(db, 'users', uid);
+        if(!savedRecipes.includes(recipeObj)){
+          savedRecipes.push(recipeObj);
           try {
-            updateDoc(recipeRef, {
+            updateDoc(docRef, {
               savedRecipes: savedRecipes
             })
             .then(handleOpen)
@@ -74,10 +76,51 @@ const RecipeDialog = (props) => {
     }
   }
 
+  const unsaveRecipe = async (recipeObj) => {
+    const uid = user?.uid;
+
+    try {
+      const docRef = doc(db, 'users', uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const result = docSnap.data();
+        let savedRecipes = result['savedRecipes'];
+        // console.log('savedRecipes', savedRecipes);
+
+        let index;
+        savedRecipes.some((object, idx) => {
+          if(object.label === recipeObj.label){
+            index = idx;
+            return true;
+          }
+        })
+        // console.log(index);
+
+        savedRecipes.splice(index, 1);
+        // console.log('savedRecipes',savedRecipes);
+
+        try {
+          updateDoc(docRef, {
+            savedRecipes: savedRecipes
+          })
+          .then(navigate(0))
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
-    <Dialog open={open} handler={handleOpen} className='max-h-[calc(90vh-2rem)]'>
+    <Dialog open={open} handler={handleOpen} className='max-h-[calc(100vh-2rem)]'>
         <DialogHeader>{recipe.label}</DialogHeader>
-        <DialogBody divider className='grid gap-2 lg:flex'>
+        <DialogBody divider className='grid gap-2 border-b-0 lg:flex'>
           <div className='flex items-center w-full gap-2 py-2 rounded-md justify-evenly lg:flex-col bg-blue-gray-50 md:bg-transparent md:justify-start'>
             <img src={recipe.image} alt="meal" className='object-cover w-20 h-20 rounded-md md:w-fit md:h-fit' loading='lazy'/>
             <Typography variant='h5' className='text-accent'>{recipe.calories.toFixed(2)} calories</Typography>
@@ -90,33 +133,45 @@ const RecipeDialog = (props) => {
               }  
             </List>
           </div>
+          <footer className='flex flex-row-reverse items-center justify-between pt-3 border-t'>
+            <div className='flex'>
+              <Button
+                variant="outlined"
+                color="red"
+                onClick={handleOpen}
+                className="mr-1"
+              >
+                <span>Close</span>
+              </Button>
+              <Button variant="gradient" color="green" onClick={()=>{saveRecipe(recipeObj)}}>
+                <span>Save</span>
+              </Button>
+            </div>
+            {
+              window.location.href.split('/')[4] == 'profile' && 
+              <Button
+                variant="outlined"
+                color="red"
+                onClick={deleteRecipe}
+                className="mr-1"
+              >
+                <span>Delete</span>
+              </Button>
+            }
+            {
+              window.location.href.split('/')[4] == 'savedRecipes' && 
+              <Button
+                variant="outlined"
+                color="red"
+                onClick={()=>{unsaveRecipe(recipeObj)}}
+                className="mr-1"
+              >
+                <span>Unsave</span>
+              </Button>
+            }
+          </footer>
         </DialogBody>
-        <DialogFooter className='flex flex-row-reverse items-center justify-between'>
-          <div className='flex'>
-            <Button
-              variant="outlined"
-              color="red"
-              onClick={handleOpen}
-              className="mr-1"
-            >
-              <span>Close</span>
-            </Button>
-            <Button variant="gradient" color="green" onClick={()=>{saveRecipe(recipe.uri)}}>
-              <span>Save</span>
-            </Button>
-          </div>
-          {
-            window.location.href.split('/')[4] == 'profile' && 
-            <Button
-              variant="outlined"
-              color="red"
-              onClick={deleteRecipe}
-              className="mr-1"
-            >
-              <span>Delete</span>
-            </Button>
-          }
-        </DialogFooter>
+        
       </Dialog>
   )
 }

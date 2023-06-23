@@ -38,3 +38,22 @@ export const getRecipe = async (query) => {
         throw new Error('Failed to retrieve recipes.');
     }
 }
+
+export const getSavedRecipe = async (urls) => {
+    try {
+        const encodedURLs = urls.map(url => encodeURIComponent(url));
+        const joinedURLs = encodedURLs.join(',');
+    
+        const response = await axios.get(`${baseURL}/search?r=${joinedURLs}&app_id=${recipe_search_api.apiId}&app_key=${recipe_search_api.apiKey}`);
+        
+        if (response && response.data && response.data.hits) {
+          return response.data.hits;
+        } else {
+          throw new Error('No recipe hits found.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        throw new Error('Failed to search for the recipes.');
+      }
+}
+

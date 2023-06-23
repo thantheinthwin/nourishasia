@@ -10,8 +10,6 @@ const Home = () => {
   const [search, setSearch] = useState('');
   const [recipes, setRecipes] = useState([]);
 
-  const navigate = useNavigate();
-
   const showRecipe = (query) => {
     getRecipe(query)
     .then(recipeHits => {

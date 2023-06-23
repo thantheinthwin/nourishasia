@@ -2,7 +2,6 @@ import { Button, Typography } from '@material-tailwind/react';
 import React, {useState} from 'react'
 
 import {
-    TrashIcon,
     MagnifyingGlassIcon
   } from "@heroicons/react/24/outline";
 import RecipeDialog from './recipeDialog';

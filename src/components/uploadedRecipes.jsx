@@ -2,17 +2,15 @@ import { Typography } from '@material-tailwind/react'
 import React, { useEffect, useState } from 'react'
 import UploadedRecipeCard from './uploadedRecipeCard'
 
-import { app, db } from '../config/firebase.config'
-import { getAuth } from 'firebase/auth'
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
-import { useStateValue } from '../context/StateProvider'
+import { db } from '../config/firebase.config'
 
-const UploadedRecipes = (props) => {
-    const {uid} = {...props};
+import { collection, getDocs, query, where } from 'firebase/firestore'
+
+const UploadedRecipes = () => {
     const [recipes, setRecipes] = useState('');
 
     const getRecipeData = async () => {
-        const q = query(collection(db, 'recipes'), where('source', '==', uid));
+        const q = query(collection(db, 'recipes'), where('source', '==', localStorage.getItem('uid')));
 
         const querySnapShot = await getDocs(q);
         let uploadedRecipes = [];
