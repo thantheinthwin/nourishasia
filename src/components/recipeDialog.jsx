@@ -122,7 +122,7 @@ const RecipeDialog = (props) => {
         <DialogBody divider className='grid gap-2 border-b-0'>
           <div className='grid gap-2 lg:flex'>
             <div className='flex items-center w-full gap-2 py-2 rounded-md justify-evenly lg:flex-col bg-blue-gray-50 md:bg-transparent md:justify-start'>
-              <img src={recipe.image} alt="meal" className='object-cover w-20 h-20 rounded-md md:w-fit md:h-fit' loading='lazy'/>
+              <img src={recipe.image} alt="meal" className='object-cover w-20 h-20 rounded-md md:w-fit md:h-96' loading='lazy'/>
               <Typography variant='h5' className='text-accent'>{recipe.calories.toFixed(2)} calories</Typography>
             </div>
             <div className='grid w-full max-h-72 lg:max-h-96'>
@@ -144,9 +144,12 @@ const RecipeDialog = (props) => {
               >
                 <span>Close</span>
               </Button>
-              <Button variant="gradient" color="green" onClick={()=>{saveRecipe(recipeObj)}}>
-                <span>Save</span>
-              </Button>
+              { 
+                window.location.href.split('/')[4] === 'recipes' &&
+                <Button variant="gradient" color="green" onClick={()=>{saveRecipe(recipeObj)}}>
+                  <span>Save</span>
+                </Button>
+              }
             </div>
             {
               window.location.href.split('/')[4] === 'profile' && 
