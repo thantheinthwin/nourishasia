@@ -96,7 +96,7 @@ const SideBar = (props) => {
                 </motion.div>
                 </AnimatePresence>
               )}
-              <ListItem onClick={closeDrawer} className='p-0'>
+              <ListItem onClick={closeDrawer}>
                 <NavLink to={'/home/recipes'} className='flex w-full'>
                   <ListItemPrefix>
                     <FolderIcon className="w-5 h-5" />
@@ -104,7 +104,7 @@ const SideBar = (props) => {
                   Recipes
                 </NavLink>
               </ListItem>
-              <ListItem onClick={closeDrawer} className='p-0'>
+              <ListItem onClick={closeDrawer}>
                 <NavLink to={'/home/addRecipes'} className='flex w-full'>
                   <ListItemPrefix>
                     <ArrowDownTrayIcon className="w-5 h-5" />
@@ -112,7 +112,7 @@ const SideBar = (props) => {
                   Add recipe
                 </NavLink>
               </ListItem>
-              <ListItem onClick={closeDrawer} className='p-0'>
+              <ListItem onClick={closeDrawer}>
                 <NavLink to={'/home/calorie_tracker'} className='flex w-full'>
                   <ListItemPrefix>
                     <BeakerIcon className="w-5 h-5" />
@@ -121,7 +121,7 @@ const SideBar = (props) => {
                 </NavLink>
               </ListItem>
               <hr className="my-2 border-blue-gray-50" />
-              <ListItem onClick={closeDrawer} className='p-0'>
+              <ListItem onClick={closeDrawer}>
                 <NavLink to={'/home/profile'}  className='flex w-full'>
                   <ListItemPrefix>
                     <UserCircleIcon className="w-5 h-5" />
@@ -129,7 +129,7 @@ const SideBar = (props) => {
                   Profile
                 </NavLink>
               </ListItem>
-              <ListItem onClick={closeDrawer} className='p-0'>
+              <ListItem onClick={closeDrawer}>
                 <NavLink to={'/home/savedRecipes'}  className='flex w-full'>
                   <ListItemPrefix>
                     <BookmarkIcon className="w-5 h-5" />
