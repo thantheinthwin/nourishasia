@@ -125,7 +125,7 @@ const RecipeDialog = (props) => {
               <img src={recipe.image} alt="meal" className='object-cover w-20 h-20 rounded-md md:w-fit md:h-96' loading='lazy'/>
               <Typography variant='h5' className='text-accent'>{recipe.calories.toFixed(2)} calories</Typography>
             </div>
-            <div className='grid w-full max-h-72 lg:max-h-96'>
+            <div className='flex flex-col w-full max-h-72 lg:max-h-96'>
               <Typography className='pl-6 text-xl font-bold uppercase text-accent'>Ingredients</Typography>
               <List className='w-full h-full overflow-y-scroll'>
                 {
