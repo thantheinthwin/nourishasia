@@ -61,6 +61,7 @@ const AddRecipe = () => {
     // console.log("img:", fileItem);
   }
 
+  // getting nutritional facts in array of object with api calls
   const calculateCalorie =  async (data) => {
     getNutritionalFacts(data)
     .then(data => {
@@ -117,6 +118,7 @@ const AddRecipe = () => {
                       <input className='w-full p-2 transition-all duration-200 ease-in-out border-b outline-none focus:ring-0 focus:ring-offset-0 focus:border-b-black' placeholder='Quantity' name='quantity' value={val.quantity} onChange={(e) => handleChange(e, i)}></input> 
                       <select className='border border-blue-gray-50 focus:bg-brown-50 w-fit focus:ring-0 focus:outline-none focus:border-blue-gray-50 rounded-r-md bg-brown-50' name='unit' value={val.unit} onChange={(e) => handleChange(e, i)}>
                         {
+                          // if it is in the mobile view, the unit will be shown in short form
                           units.map((unit, i) => <option key={i}>{!isMobileView ? unit.label : unit.value}</option>)
                         }
                       </select>

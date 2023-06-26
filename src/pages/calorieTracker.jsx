@@ -51,9 +51,11 @@ const CalorieTracker = () => {
     setData(deleteVal)
   }
 
+  // getting nutritional facts with api
   const calculateCalorie =  async (data) => {
     getNutritionalFacts(data)
     .then(data => {
+      // Assigning the object fetched from api to react state
       setNutritionFacts({...data});
     })
     .catch(error => {
@@ -115,27 +117,27 @@ const CalorieTracker = () => {
   );
 }
 
-export const Table = (props) => {
-  const {headers, contents} = {...props};
+// export const Table = (props) => {
+//   const {headers, contents} = {...props};
 
-  return (
-    <table className='table-auto'>
-      <thead>
-        <tr>
-          {headers.map(header => <td>{header}</td>)}
-        </tr>
-      </thead>
-      <tbody>
-        {
-          contents.map(content => {
-            <tr>
-              <td>{content}</td>
-            </tr>
-          })
-        }
-      </tbody>
-    </table>
-  )
-}
+//   return (
+//     <table className='table-auto'>
+//       <thead>
+//         <tr>
+//           {headers.map(header => <td>{header}</td>)}
+//         </tr>
+//       </thead>
+//       <tbody>
+//         {
+//           contents.map(content => {
+//             <tr>
+//               <td>{content}</td>
+//             </tr>
+//           })
+//         }
+//       </tbody>
+//     </table>
+//   )
+// }
 
 export default CalorieTracker

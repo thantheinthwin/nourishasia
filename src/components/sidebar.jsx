@@ -35,6 +35,7 @@ const SideBar = (props) => {
 
   const cuisine = ['All', 'Chinese', 'Japanese', 'Thai', 'Indian', 'Korean', 'Vietnamese', 'Malaysian', 'Indonesian', 'Burmese']
 
+  // Logout function
   const logOut = () => {
     const firebaseAuth = getAuth(app);
     firebaseAuth.signOut()
@@ -46,6 +47,7 @@ const SideBar = (props) => {
     }).catch((e) => console.log(e));
   }
 
+  // Using useEffect hook to make the filter shown only on recipe page
   useEffect(() => {
     if(window.location.href.split('/')[4] === 'recipes'){
       setRecipePage(true);
@@ -61,6 +63,7 @@ const SideBar = (props) => {
     setFilter(newFilter);
   }
 
+  // The api doesn't work with the keyword 'non-vegan'. If the user chooses non-vegan option in filter, this function will replace non-vegan string with an empty string
   useEffect(()=>{
     var foodChoice = '';
     if(filter.foodChoice !== 'Non-vegan'){
@@ -79,6 +82,7 @@ const SideBar = (props) => {
               <img src={Logo} alt="brand" />
             </div>
             <List className="grid">
+              {/* If the isRecipePage state is true, the div below will be rendered */}
               {isRecipePage && (
                 <AnimatePresence>
                 <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25}}>
@@ -157,6 +161,7 @@ const SideBar = (props) => {
             <img src={Logo} alt="brand" className="" />
           </div>
           <List className="grid">
+            {/* If the isRecipePage state is true, the div below will be rendered */}
             {isRecipePage && (
               <AnimatePresence>
               <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 0.25}}>

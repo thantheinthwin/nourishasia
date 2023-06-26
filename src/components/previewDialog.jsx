@@ -21,9 +21,11 @@ const PreviewDialog = (props) => {
   const firebaseAuth = getAuth(app);
   const navigate = useNavigate();
 
+  // assigning the following variables destructuring an object
   const {open, handleOpen, recipe, name, img} = {...props};
 
 //   console.log('dish', dish)
+  // funtion of saving recipe to database
   const handleSubmit = async (url, filename) => {    
     const uid = firebaseAuth.currentUser.uid;
     const ingredientLines = recipe.ingredients.map(line => line.text)
@@ -48,6 +50,7 @@ const PreviewDialog = (props) => {
     }
   }
 
+  // Function to store the image on firebase storage
   const uploadImage = () => {
     if(img == null) return;
     const filename = img.name + v4();

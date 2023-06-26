@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 import UploadedRecipeCard from './uploadedRecipeCard'
 
 import { db } from '../config/firebase.config'
-
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
 const UploadedRecipes = () => {
     const [recipes, setRecipes] = useState('');
 
+    // Getting saved recipes from database
     const getRecipeData = async () => {
         const q = query(collection(db, 'recipes'), where('source', '==', localStorage.getItem('uid')));
 
@@ -20,8 +20,9 @@ const UploadedRecipes = () => {
         })
         // console.log(uploadedRecipes)
         setRecipes(uploadedRecipes);
-        }
+    }
 
+    // run getRecipeData function when the user gets to profile page
     useEffect(()=>{
         getRecipeData()
     },[])

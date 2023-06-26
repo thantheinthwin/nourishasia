@@ -24,6 +24,7 @@ const RecipeDialog = (props) => {
   // console.log(recipe);
   const recipeObj = (({ label, ingredientLines, image, calories }) => ({ label, ingredientLines, image, calories }))(recipe);
 
+  // Function to delete recipe from database
   const deleteRecipe = async () => {
     try {
       deleteDoc(doc(db, 'recipes', recipe.id))
@@ -41,6 +42,7 @@ const RecipeDialog = (props) => {
     }
   }
 
+  // Function to save recipe to database
   const saveRecipe = async (recipeObj) => {
     const uid = user?.uid;
 
@@ -75,6 +77,7 @@ const RecipeDialog = (props) => {
     }
   }
 
+  // Function to unsave recipe
   const unsaveRecipe = async (recipeObj) => {
     const uid = user?.uid;
 

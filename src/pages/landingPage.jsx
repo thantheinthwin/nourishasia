@@ -15,6 +15,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 const LandingPage = () => {
   const navigate = useNavigate();
 
+  // Array of objects for meals
   const meals = [
     {
       name: 'Tuna Spaghetti',
@@ -105,6 +106,8 @@ const LandingPage = () => {
             Remember, the power to transform your life through nutrition lies within your reach. Let us be your trusted partner on this exciting adventure.
           </Typography>
           <div className='grid w-4/5 grid-cols-1 gap-4 mx-auto lg:grid-cols-4'>
+            {/* Recipe Card */}
+            {/* Using map function to render recipe cards */}
             {meals.map((item, i) => (
               <Card className="grid" key={i}>
                 <CardBody className='grid gap-4'>
@@ -117,7 +120,8 @@ const LandingPage = () => {
                   </Typography>
                 </CardBody>
                 <CardFooter className='self-end'>
-                  <Button className='bg-primary hover:shadow-brown-200' onClick={() => {window.localStorage.getItem('auth' ? navigate('/login', {replace: true}) : navigate('/home', {replace: true}))}}>Get Recipe</Button>
+                  {/* If the user clicks on Get Recipe button of recipe card, it will automatically route the user to home page. If not it will route the usero to login page */}
+                  <Button className='bg-primary hover:shadow-brown-200' onClick={() => {window.localStorage.getItem('auth' ? navigate('/login', {replace: true}) : navigate('/home/recipes', {replace: true}))}}>Get Recipe</Button>
                 </CardFooter>
               </Card>
             ))}

@@ -3,6 +3,7 @@ import { AddRecipePage, CalorieTrackerPage, ProfilePage, RecipePage, SavedRecipe
 import { Route, Routes } from 'react-router-dom'
 
 const ContentArea = (props) => {
+  // Arrays of objects for pages
   const routes = [
     {
       path: '/recipes',
@@ -28,6 +29,7 @@ const ContentArea = (props) => {
 
   return (
     <div className='w-full h-full bg-secondary'>
+      {/* Routes to the pages after login */}
       <Routes>
         {routes.map((route, i) => (
           <Route key={i} path={route.path} element={route.element}/>

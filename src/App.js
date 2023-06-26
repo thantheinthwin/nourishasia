@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
+
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -20,7 +21,7 @@ const App = () => {
 
   const [auth, setAuth] = useState(false || window.localStorage.getItem("auth") === "true");
 
-  // Restricting the user from getting access to home page without signing in
+  // Restricting the user from getting access to home page without signing in by using useEffect hook from react
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((userCred) => {
       if(userCred){
@@ -41,7 +42,7 @@ const App = () => {
     })
   }, []);
 
-  // Routing the user back to landing page if the user has already logged in
+  // Routing the user back to landing page if the user has already logged in by using useEffect from react
   useEffect(() => {
     if(window.localStorage.getItem("auth") === "false"){
         navigate("/", {replace: true})
@@ -49,15 +50,16 @@ const App = () => {
   }, [])
 
   return (
+    // Routes to the main pages of web application by using Routes and Route of react-router-dom
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <AnimatePresence mode='wait'>
-      <Routes>
-        <Route path='/' element={<LandingPage/>}/>
-        <Route path='/login' element={<LoginPage setAuth={setAuth}/>}/>
-        <Route path='/home/*' element={<Home/>}/>
-        <Route path='/login/form' element={<UserDataEntryForm/>}/>
-      </Routes>
-    </AnimatePresence>
+      <AnimatePresence mode='wait'>
+        <Routes>
+          <Route path='/' element={<LandingPage/>}/>
+          <Route path='/login' element={<LoginPage setAuth={setAuth}/>}/>
+          <Route path='/home/*' element={<Home/>}/>
+          <Route path='/login/form' element={<UserDataEntryForm/>}/>
+        </Routes>
+      </AnimatePresence>
     </LocalizationProvider>
   )
 }

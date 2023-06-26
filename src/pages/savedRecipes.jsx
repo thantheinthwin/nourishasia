@@ -19,6 +19,7 @@ const SavedRecipes = () => {
         }
     }
 
+    // getting data from database to show saved recipes
     useEffect(()=>{
         getSavedRecipes()
     },[])

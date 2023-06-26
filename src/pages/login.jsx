@@ -20,7 +20,7 @@ const Login = ({setAuth}) => {
     const [{user}, dispatch] = useStateValue();
     const [email, setEmail] = useState( window.localStorage.getItem("emailForSignIn") || "");
 
-    // Logging in with Google Auth using firebase
+    // Function for logging in with Google Auth using firebase
     const loginWithGoogle = async () => {
         await signInWithPopup(firebaseAuth, provider).then((userCred) => {
             const details = getAdditionalUserInfo(userCred);
@@ -37,6 +37,7 @@ const Login = ({setAuth}) => {
                         user: userCred
                     })
                     window.localStorage.setItem('uid', userCred.uid);
+                    // Navigate the user to data entry form if the user is new to application
                     if(details.isNewUser){
                         window.localStorage.setItem('firstTime', 'true');
                         navigate("/login/form", {replace: true});
@@ -77,7 +78,7 @@ const Login = ({setAuth}) => {
         handleCodeInApp: true,
     }
 
-    // Logging in with email link
+    // Function for logging in with email link
     const loginWithEmailLink = async () => {
         // If the user is re-entering their email but already has a code
         if(isSignInWithEmailLink(firebaseAuth, window.location.href) && !email){
@@ -101,21 +102,6 @@ const Login = ({setAuth}) => {
             })
         }
     }
-
-    // if(isSignInWithEmailLink(firebaseAuth, window.location.href)) {
-    //     let saved_email = window.localStorage.getItem("emailForSignIn");
-    //     if(!saved_email){
-    //         saved_email = window.prompt("Please provide your email for confirmation");
-    //     }
-    //     signInWithEmailLink(firebaseAuth, saved_email, window.location.href)
-    //     .then((result) => {
-    //         console.log(result);
-    //         window.localStorage.removeItem('emailForSignIn');
-    //     })
-    //     .catch((error) => {
-    //         console.log(error)
-    //     })
-    // }
 
     useEffect(() => {
         // Get the saved email

@@ -17,6 +17,7 @@ const HomeNavBar = (props) => {
     <div className='flex flex-row items-center justify-between w-full px-6 py-4 shadow lg:justify-end h-fit'>
       <i className='w-8 h-8 p-1 rounded-md hover:bg-blue-gray-50 lg:hidden' onClick={props.handleSideBarOpen}><Bars3Icon/></i>
       <div className="relative flex gap-2 w-fit md:w-max">
+        {/* Searching recipes with name */}
         <Input
           type="search"
           color='brown'

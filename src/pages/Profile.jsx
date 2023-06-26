@@ -77,6 +77,7 @@ export const ProfileCard = () => {
   )
 }
 
+// Converting date format to age using momentJS
 export function calculateAge(birthdateISOString) {
   const birthdate = moment(birthdateISOString);
   const currentDatetime = moment();
